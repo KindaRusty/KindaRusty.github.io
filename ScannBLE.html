@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cham Museum Artifact Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="bluetooth" content="allowed" />
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 30px; }
+    #info { margin-top: 20px; }
+    .sensor-card {
+        background: #f5f5f5;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .sensor-card h3 {
+        margin: 0;
+        color: #333;
+    }
+    .sensor-card p {
+        font-size: 24px;
+        margin: 10px 0;
+        color: #007bff;
+    }
+
+    .signal-indicator {
+        width: 50px;
+        height: 20px;
+        display: inline-flex;
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+
+    .signal-bar {
+        width: 6px;
+        margin-right: 2px;
+        background-color: #ccc;
+        transition: height 0.3s, background-color 0.3s;
+    }
+
+    .signal-active {
+        background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h2>Cham Museum BLE Artifact Viewer</h2>
+  <!-- Add QR scanning button below BLE button -->
+  <button id="scanButton" class="btn btn-primary">
+      Scan BLE Device
+  </button>
+
+  <button id="qrScanButton" class="btn btn-primary mt-2">
+      Scan QR Code
+  </button>
+  <div id="info"></div>
+
+  <!-- Add this dashboard div (initially hidden) after your existing buttons -->
+  <div id="dashboard" style="display: none; margin-top: 20px;">
+    <!-- Existing sensor cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 800px; margin: 0 auto;">
+        <div class="sensor-card">
+            <h3>Temperature</h3>
+            <p id="temperature">-- °C</p>
+        </div>
+        <div class="sensor-card">
+            <h3>Humidity</h3>
+            <p id="humidity">-- %</p>
+        </div>
+        <div class="sensor-card">
+            <h3>Light Level</h3>
+            <p id="light">-- lux</p>
+        </div>
+    </div>
+    
+    <!-- New WiFi status section -->
+    <div class="wifi-status" style="margin-top: 20px;">
+        <div class="sensor-card">
+            <h3>Connection Status</h3>
+            <div style="display: flex; align-items: center;">
+                <p id="wifi-status">WiFi: --</p>
+                <div class="signal-indicator">
+                    <div class="signal-bar" style="height: 5px;"></div>
+                    <div class="signal-bar" style="height: 10px;"></div>
+                    <div class="signal-bar" style="height: 15px;"></div>
+                    <div class="signal-bar" style="height: 20px;"></div>
+                </div>
+            </div>
+            <p id="wifi-ssid">SSID: --</p>
+            <p id="wifi-strength">Signal: --</p>
+            <p id="ble-strength">BLE Signal: --</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- New device info section -->
+  <div id="device-info" style="margin: 20px 0;">
+    <h3 id="device-name">Not Connected</h3>
+  </div>
+
+  <!-- Include jsQR library for QR code detection -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script>
+    // Add these variables at the top
+let gattServer = null;
+let bluetoothDevice = null;
+
+// Add Nordic nRF UUIDs
+const NRF_SERVICE_UUID = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+const NRF_RX_UUID = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
+const NRF_TX_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+
+async function connectBLE() {
+      try {
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ name: "Test_ESP32" }],
+          optionalServices: ["12345678-1234-1234-1234-1234567890ab"]
+        });
+
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService("12345678-1234-1234-1234-1234567890ab");
+        const characteristic = await service.getCharacteristic("abcd");
+
+        const value = await characteristic.readValue();
+        const decoder = new TextDecoder();
+        const data = decoder.decode(value);
+        const [id, name, desc, audioUrl] = data.split("|");
+
+        document.getElementById("info").innerHTML = `
+          <h3>${name}</h3>
+          <p><strong>ID:</strong> ${id}</p>
+          <p>${desc}</p>
+          <audio controls src="${audioUrl}"></audio>
+        `;
+      } catch (error) {
+        alert("BLE Connection failed: " + error);
+      }
+    }
+
+    // BLE scanning implementation
+document.getElementById('scanButton').addEventListener('click', async () => {
+    try {
+        if (!navigator.bluetooth) {
+            throw new Error('Bluetooth is not supported');
+        }
+
+        // Request device with nRF service
+        const device = await navigator.bluetooth.requestDevice({
+            filters: [{
+                services: [NRF_SERVICE_UUID]
+            }],
+            optionalServices: [
+                'environmental_sensing',
+                'battery_service',
+                'device_information'
+            ]
+        });
+
+        console.log('Device name:', device.name);
+        document.getElementById('device-name').textContent = `Connected to: ${device.name}`;
+
+        // Connect to GATT
+        const server = await device.gatt.connect();
+        const nrfService = await server.getPrimaryService(NRF_SERVICE_UUID);
+        
+        // Get TX/RX characteristics
+        const rxCharacteristic = await nrfService.getCharacteristic(NRF_RX_UUID);
+        const txCharacteristic = await nrfService.getCharacteristic(NRF_TX_UUID);
+
+        // Listen for notifications
+        await txCharacteristic.startNotifications();
+        txCharacteristic.addEventListener('characteristicvaluechanged', (event) => {
+            const value = event.target.value;
+            const decoder = new TextDecoder();
+            const data = JSON.parse(decoder.decode(value));
+            
+            updateDashboard(data);
+        });
+
+        // Show dashboard
+        document.getElementById('dashboard').style.display = 'block';
+
+    } catch (error) {
+        console.error('Bluetooth Error:', error);
+        alert(error.message);
+    }
+});
+
+
+    // Event listener for QR code scanning button
+    document.getElementById('qrScanButton').addEventListener('click', async () => {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+        const video = document.createElement('video');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        
+        video.srcObject = stream;
+        video.setAttribute('playsinline', true);
+        
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+        modal.style.zIndex = '1000';
+        
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Close';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '20px';
+        closeButton.style.right = '20px';
+        
+        modal.appendChild(video);
+        modal.appendChild(closeButton);
+        document.body.appendChild(modal);
+        video.play();
+
+        const scan = () => {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                
+                if (code) {
+                    try {
+                        const url = new URL(code.data);
+                        stream.getTracks().forEach(track => track.stop());
+                        modal.remove();
+                        window.open(url, '_blank');
+                        return;
+                    } catch (e) {
+                        console.log('Invalid URL:', code.data);
+                    }
+                }
+            }
+            requestAnimationFrame(scan);
+        };
+
+        scan();
+        
+        closeButton.onclick = () => {
+            stream.getTracks().forEach(track => track.stop());
+            modal.remove();
+        };
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Camera access error. Please try again.');
+    }
+  });
+
+  // Add this function to update signal indicators
+  function updateSignalBars(rssi) {
+    const bars = document.querySelectorAll('.signal-bar');
+    const maxRSSI = -50;  // Best signal strength
+    const minRSSI = -100; // Worst signal strength
+    
+    // Calculate how many bars should be active
+    const range = maxRSSI - minRSSI;
+    const relativeStrength = (rssi - minRSSI) / range;
+    const activeBars = Math.ceil(relativeStrength * 4);
+
+    // Update bars
+    bars.forEach((bar, index) => {
+        if (index < activeBars) {
+            bar.classList.add('signal-active');
+        } else {
+            bar.classList.remove('signal-active');
+        }
+    });
+}
+
+function updateDashboard(data) {
+    // Update sensor values
+    if (data.temperature !== undefined) {
+        document.getElementById('temperature').textContent = `${data.temperature.toFixed(1)} °C`;
+    }
+    if (data.humidity !== undefined) {
+        document.getElementById('humidity').textContent = `${data.humidity.toFixed(1)} %`;
+    }
+    if (data.light !== undefined) {
+        document.getElementById('light').textContent = `${data.light} lux`;
+    }
+
+    // Update signal strength
+    if (data.rssi !== undefined) {
+        updateSignalBars(data.rssi);
+        document.getElementById('ble-strength').textContent = `Signal: ${data.rssi} dBm`;
+    }
+}
+  </script>
+  
+</body>
+</html>
