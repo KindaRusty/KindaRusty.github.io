@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events | The Met</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/events.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo"><img src="media/logo.jpg" alt="Logo"></a>
+            
+            <ul class="nav-links">
+                <li><a href="visit.html">Visit <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="collection.html">Collection <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="contact.html">Contact Us <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+            </ul>
+            
+            <div class="search-container">
+                <form class="search-box">
+                    <input type="text" placeholder="Searching for..." />
+                    <button type="submit">&#128269;</button>
+                </form>
+            </div>             
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="events-main">
+        <div class="events-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+              <div class="sidebar-title">Narrow your Search</div>
+              <hr>
+              <div class="filter-group">
+                <button class="filter-toggle" type="button" aria-expanded="true">
+                  <span>Audience</span>
+                  <span class="arrow">&#9650;</span>
+                </button>
+                <div class="filter-options">
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="audience" value="Trẻ em"> Trẻ em <span class="count"></span></label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="audience" value="Người lớn"> Người lớn <span class="count"></span></label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="audience" value="Người già"> Người già <span class="count"></span></label>
+                </div>
+              </div>
+              <hr>
+              <div class="filter-group">
+                <button class="filter-toggle" type="button" aria-expanded="true">
+                  <span>Location</span>
+                  <span class="arrow">&#9650;</span>
+                </button>
+                <div class="filter-options">
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="The Met Fifth Avenue"> The Met Fifth Avenue </label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="The Met Cloisters"> The Met Cloisters </label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="Online"> Online </label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="Other"> Other </label>
+                </div>
+              </div>
+              <hr>
+              <div class="filter-group">
+                <button class="filter-toggle" type="button" aria-expanded="true">
+                  <span>Price</span>
+                  <span class="arrow">&#9650;</span>
+                </button>
+                <div class="filter-options">
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="price" value="Free"> Free </label>
+                  <label><input type="checkbox" class="filter-checkbox" data-filter="price" value="Paid"> Paid </label>
+                </div>
+              </div>
+            </aside>
+            <!-- Events List -->
+            <section class="events-list-section">
+                <div class="events-list-header">
+                    <span id="eventCount"></span>
+                    <select class="sort-select" id="sortSelect">
+                      <option value="date">Sort by Date</option>
+                      <option value="a-z">Sort A-Z</option>
+                      <option value="z-a">Sort Z-A</option>
+                    </select>
+                </div>
+                <div class="events-list">
+                    <div class="events-date">Thursday, June 19</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/banner1.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Trưng bày chuyên đề: Nghệ thuật điêu khắc Chăm</div>
+                            <div class="event-desc">Khám phá các tác phẩm điêu khắc đá độc đáo của người Chăm từ thế kỷ VII đến XV, với phần thuyết minh chi tiết về lịch sử và ý nghĩa từng hiện vật.</div>
+                            <div class="event-meta"><span>8:30 AM</span> | <span>Phòng Đà Nẵng</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Friday, June 20</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Người già">
+                        <input type="hidden" class="event-price" value="Paid">
+                        <img src="media/Bao-vat-quoc-gia-Shiva-Phong-Le-Da-Nang-Bao-tang-dieu-khac-Cham.jpg" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Giới thiệu hiện vật mới: Tượng thần Shiva</div>
+                            <div class="event-desc">Buổi giới thiệu và phân tích về tượng thần Shiva vừa được phục dựng, cùng phần trình bày của các chuyên gia khảo cổ.</div>
+                            <div class="event-meta"><span>9:00 AM</span> | <span>Phòng Mỹ Thuật Chăm</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Tuesday, July 1</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/banner2.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Hướng dẫn tham quan: Nghệ thuật kiến trúc Chăm</div>
+                            <div class="event-desc">Tour tham quan các hiện vật kiến trúc, giải thích về kỹ thuật xây dựng và trang trí của người Chăm cổ.</div>
+                            <div class="event-meta"><span>8:00 AM</span> | <span>Khuôn Viên Bảo Tàng</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Friday, July 4</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn, Người già">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/IMG_2291.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Chiếu phim tài liệu: Vương quốc Chăm Pa</div>
+                            <div class="event-desc">Xem phim tài liệu về lịch sử, văn hóa và nghệ thuật của vương quốc Chăm Pa xưa.</div>
+                            <div class="event-meta"><span>2:30 PM</span> | <span>Phòng Gốm Sa Huỳnh</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Sunday, July 6</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn, Người già">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/Thap-banh-it-quy-nhon-1.jpg" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Triển lãm ảnh: Di sản Chăm qua ống kính</div>
+                            <div class="event-desc">Triển lãm các bức ảnh nghệ thuật về di sản Chăm tại miền Trung Việt Nam, do các nhiếp ảnh gia thực hiện.</div>
+                            <div class="event-meta"><span>5:00 PM</span> | <span>Phòng Quảng Ngãi và Phòng Bình Định Kontum</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Friday, July 18</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn, Người già">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/IMG_2259.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Trưng bày chuyên đề: Đồ gốm Chăm cổ</div>
+                            <div class="event-desc">Khám phá bộ sưu tập đồ gốm Chăm cổ với nhiều hiện vật quý hiếm lần đầu tiên ra mắt công chúng.</div>
+                            <div class="event-meta"><span>1:30 PM</span> | <span>Phòng Gốm Sa Huỳnh - Chăm Pa</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Sunday, July 20</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Người lớn">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/Hoi-thao-bao-ton-van-hoa-cham.jpg" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Hội thảo: Bảo tồn di sản Chăm</div>
+                            <div class="event-desc">Các chuyên gia chia sẻ về công tác bảo tồn, phục dựng di sản văn hóa Chăm tại miền Trung.</div>
+                            <div class="event-meta"><span>6:00 PM</span> | <span>Phòng Thuyết Minh</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                    <div class="events-date">Saturday, July 26</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn, Người già">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/IMG_2237.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Triển lãm chuyên đề: Thần thoại Chăm Pa</div>
+                            <div class="event-desc">Triển lãm các hiện vật và tranh vẽ về các vị thần trong thần thoại Chăm Pa, kết hợp thuyết minh trực tiếp.</div>
+                            <div class="event-meta"><span>7:00 PM</span> | <span>Phòng Đà Nẵng</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>            
+                    <div class="events-date">Wednesday, July 30</div>
+                    <div class="event-item">
+                        <input type="hidden" class="event-audience" value="Trẻ em,Người lớn, Người già">
+                        <input type="hidden" class="event-price" value="Free">
+                        <img src="media/IMG_2243.png" alt="Event" class="event-thumb">
+                        <div class="event-info">
+                            <div class="event-title">Chuyên đề: Nghệ thuật trang trí trên gạch Chăm</div>
+                            <div class="event-desc">Giới thiệu các kỹ thuật và hoa văn trang trí đặc sắc trên gạch xây dựng của người Chăm cổ.</div>
+                            <div class="event-meta"><span>3:00 PM</span> | <span>Phòng Trưng Bày Chuyên Đề</span></div>
+                            <div class="event-link"><a href="#">Miễn phí vé vào cổng</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-links">
+                <a href="#">About The Met</a>
+                <a href="#">Mission and History</a>
+                <a href="#">Collection Areas</a>
+                <a href="#">Contact Information</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-newsletter">
+                <input type="email" placeholder="Enter your email">
+                <button>Sign Up</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Widget Container -->
+<div id="widget-container" style="
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+">
+  <!-- AI Chat Widget sẽ đặt ở đây nếu có -->
+  <!-- Weather Widget -->
+  <div id="weather-widget" style="
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    padding: 16px 22px;
+    font-size: 1em;
+    min-width: 180px;
+    text-align: left;
+    font-family: inherit;
+  ">
+    <span>Loading weather...</span>
+  </div>
+</div>
+
+    <!-- Scripts -->
+    <script>
+      // Toggle dropdowns
+      document.querySelectorAll('.filter-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', !expanded);
+          const options = button.nextElementSibling;
+          options.style.display = expanded ? 'none' : 'block';
+        });
+      });
+    </script>
+    <script>
+const eventsList = document.querySelector('.events-list');
+// Lưu lại HTML gốc ban đầu
+const originalEventsHTML = eventsList.innerHTML;
+
+document.getElementById('sortSelect').addEventListener('change', function() {
+    const value = this.value;
+
+    // Luôn khôi phục lại HTML gốc trước khi sort
+    eventsList.innerHTML = originalEventsHTML;
+
+    // Lấy lại các nhóm ngày sau khi khôi phục
+    let dateGroups = Array.from(eventsList.querySelectorAll('.events-date'));
+    let eventBlocks = [];
+
+    // Gom nhóm các event theo ngày
+    dateGroups.forEach(dateGroup => {
+        let group = [dateGroup];
+        let next = dateGroup.nextElementSibling;
+        while (next && !next.classList.contains('events-date')) {
+            group.push(next);
+            next = next.nextElementSibling;
+        }
+        eventBlocks.push(group);
+    });
+
+    if (value === 'date') {
+        // Sort theo ngày tăng dần
+        eventBlocks.sort((a, b) => {
+            let dateA = new Date(a[0].textContent.replace(/,/g,''));
+            let dateB = new Date(b[0].textContent.replace(/,/g,''));
+            return dateA - dateB;
+        });
+        // Xóa hết cũ và thêm lại theo nhóm ngày
+        eventsList.innerHTML = '';
+        eventBlocks.forEach(group => {
+            group.forEach(node => eventsList.appendChild(node));
+        });
+    } else {
+        // Gom tất cả event-item lại để sort theo tên
+        let allEvents = [];
+        eventBlocks.forEach(group => {
+            for (let i = 1; i < group.length; i++) {
+                allEvents.push(group[i]);
+            }
+        });
+        // Sort theo event-title
+        allEvents.sort((a, b) => {
+            let titleA = a.querySelector('.event-title').textContent.trim().toLowerCase();
+            let titleB = b.querySelector('.event-title').textContent.trim().toLowerCase();
+            if (value === 'a-z') return titleA.localeCompare(titleB);
+            else return titleB.localeCompare(titleA);
+        });
+        // Xóa hết cũ và thêm lại theo thứ tự mới, không nhóm ngày
+        eventsList.innerHTML = '';
+        allEvents.forEach(ev => eventsList.appendChild(ev));
+    }
+});
+
+function updateEventCount() {
+    // Đếm số event-item đang hiển thị (không bị ẩn)
+    const count = Array.from(document.querySelectorAll('.events-list .event-item'))
+        .filter(ev => ev.style.display !== 'none').length;
+    document.getElementById('eventCount').textContent = `${count} events`;
+}
+updateEventCount();
+
+// Gọi lại khi sort
+document.getElementById('sortSelect').addEventListener('change', updateEventCount);
+
+// Gọi lại khi filter (nếu có filter audience)
+document.querySelectorAll('.filter-checkbox').forEach(cb => {
+    cb.addEventListener('change', function() {
+        filterEvents();
+        updateEventCount();
+    });
+});
+
+// Hàm filterEvents (lọc theo audience)
+function filterEvents() {
+    // Lấy các audience được chọn
+    const checkedAudience = Array.from(document.querySelectorAll('.filter-checkbox[data-filter="audience"]:checked'))
+        .map(cb => cb.value);
+
+    // Lấy các price được chọn
+    const checkedPrice = Array.from(document.querySelectorAll('.filter-checkbox[data-filter="price"]:checked'))
+        .map(cb => cb.value);
+
+    document.querySelectorAll('.events-list .event-item').forEach(ev => {
+        const audience = ev.querySelector('.event-audience')?.value || '';
+        const price = ev.querySelector('.event-price')?.value || '';
+
+        // Kiểm tra audience
+        const matchAudience = checkedAudience.length === 0 || checkedAudience.some(val => audience.includes(val));
+        // Kiểm tra price
+        const matchPrice = checkedPrice.length === 0 || checkedPrice.includes(price);
+
+        if (matchAudience && matchPrice) {
+            ev.style.display = '';
+        } else {
+            ev.style.display = 'none';
+        }
+    });
+
+    // Ẩn events-date nếu không còn event-item nào bên dưới nó
+    document.querySelectorAll('.events-list .events-date').forEach(dateDiv => {
+        let next = dateDiv.nextElementSibling;
+        let hasVisible = false;
+        while (next && !next.classList.contains('events-date')) {
+            if (next.classList.contains('event-item') && next.style.display !== 'none') {
+                hasVisible = true;
+                break;
+            }
+            next = next.nextElementSibling;
+        }
+        dateDiv.style.display = hasVisible ? '' : 'none';
+    });
+}
+</script>
+<footer class="main-footer">
+</footer>
+</div>
+<script src="scripts/weather.js"></script>
+</body>
+</html>

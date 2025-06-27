@@ -1,0 +1,349 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.logo img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    padding: 10px 0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: #000;
+  color: #fff;
+  height: 100px;
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 34px 0;
+  display: inline-block;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-links a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 25px;
+  left: 0;
+  background-color: #fff;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.nav-links a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.dropdown-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+}
+
+.dropdown-arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+.dropdown-arrow svg path {
+  fill: black;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.search-box {
+  display: flex;
+  width: 250px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+  border-bottom: 2px solid #fff;
+}
+
+.search-box input[type="text"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  padding: 6px 0;
+}
+
+.search-box button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.search-box button:hover {
+  opacity: 1;
+}
+
+/* Slide switch style */
+
+.logo {
+    font-size: 2.2em;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.main-footer {
+    background: #f7f7f7;
+    color: #222;
+    padding: 40px 0 0 0;
+    font-size: 0.98em;
+    border-top: 1px solid #eee;
+}
+
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    padding: 0 40px 30px 40px;
+    align-items: flex-start;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 160px;
+    margin-bottom: 18px;
+}
+
+.footer-links a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.footer-social a {
+    color: #222;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.footer-newsletter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.footer-newsletter button {
+    background: #e4002b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #fff; }
+.container { max-width: 1200px; margin: 32px auto; padding: 0 16px; }
+h1 { font-size: 2.5em; margin-bottom: 18px; }
+.collection-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+.collection-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    width: calc(25% - 24px);
+    min-width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.collection-card:hover {
+    box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+}
+.collection-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+.collection-card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 16px 16px 12px 16px;
+}
+.artifacts-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
+}
+.artifacts-modal.active { display: flex; }
+.artifacts-content {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px 28px 24px 28px;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.artifacts-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-size: 2em;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.artifacts-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+.artifacts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+.artifact-card {
+    width: 180px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 10px 10px 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.artifact-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.artifact-name {
+    font-weight: 500;
+    text-align: center;
+    font-size: 1em;
+}
+@media (max-width: 900px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 0;
+    }
+    .footer-top {
+        padding: 0 18px 30px 18px;
+    }
+    .collection-grid { flex-direction: column; gap: 18px; }
+    .collection-card { width: 100%; min-width: unset; }
+}
+
+@media (max-width: 600px) {
+    .footer-top {
+        padding: 0 8px 30px 8px;
+    }
+}

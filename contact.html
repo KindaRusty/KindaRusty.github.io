@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse the Art | The Met</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/collection.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo"><img src="media/logo.jpg" alt="Logo"></a>
+            <ul class="nav-links">
+                <li><a href="visit.html">Visit <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="events.html">Events <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="collection.html">Collection <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="contact.html">Contact Us </a></li>
+            </ul>
+            <div class="search-container">
+                <form class="search-box">
+                    <input type="text" placeholder="Searching for..." />
+                    <button type="submit">&#128269;</button>
+                </form>
+            </div>             
+        </nav>
+    </header>
+<!-- Weather Widget -->
+<div id="weather-widget" style="
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  padding: 16px 22px;
+  font-size: 1em;
+  min-width: 180px;
+  text-align: left;
+  font-family: inherit;
+  z-index: 9999;
+">
+  <span>Loading weather...</span>
+</div>
+<script src="scripts/weather.js"></script>
+</body>
+</html>
