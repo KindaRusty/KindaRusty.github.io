@@ -25,15 +25,29 @@
                     <input type="text" placeholder="Searching for..." />
                     <button type="submit">&#128269;</button>
                 </form>
-            </div>             
+            </div>   
+            <button class="hamburger-menu" aria-label="Open navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>          
         </nav>
     </header>
+    <div class="mobile-nav-container">
+        <ul class="mobile-nav-links">
+            <li><a href="visit.html">Visit</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
 
     <!-- Main Content -->
     <main class="events-main">
         <div class="events-container">
             <!-- Sidebar -->
             <aside class="sidebar">
+              <button class="sidebar-close-button" aria-label="Close filters">
+                <i class="fas fa-times"></i>
+              </button>
               <div class="sidebar-title">Narrow your Search</div>
               <hr>
               <div class="filter-group">
@@ -49,18 +63,7 @@
               </div>
               <hr>
               <div class="filter-group">
-                <button class="filter-toggle" type="button" aria-expanded="true">
-                  <span>Location</span>
-                  <span class="arrow">&#9650;</span>
-                </button>
-                <div class="filter-options">
-                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="The Met Fifth Avenue"> The Met Fifth Avenue </label>
-                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="The Met Cloisters"> The Met Cloisters </label>
-                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="Online"> Online </label>
-                  <label><input type="checkbox" class="filter-checkbox" data-filter="location" value="Other"> Other </label>
-                </div>
               </div>
-              <hr>
               <div class="filter-group">
                 <button class="filter-toggle" type="button" aria-expanded="true">
                   <span>Price</span>
@@ -75,6 +78,10 @@
             <!-- Events List -->
             <section class="events-list-section">
                 <div class="events-list-header">
+                    <button class="filter-button" aria-label="Open filters">
+                        <i class="fas fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
                     <span id="eventCount"></span>
                     <select class="sort-select" id="sortSelect">
                       <option value="date">Sort by Date</option>
@@ -256,6 +263,21 @@
           options.style.display = expanded ? 'none' : 'block';
         });
       });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButton = document.querySelector('.filter-button');
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarCloseButton = document.querySelector('.sidebar-close-button');
+
+            filterButton.addEventListener('click', () => {
+                sidebar.classList.add('open');
+            });
+
+            sidebarCloseButton.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
     </script>
     <script>
 const eventsList = document.querySelector('.events-list');
