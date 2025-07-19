@@ -7,7 +7,7 @@ const LANGS = {
     openTitle: "Chat với AI",
     answeringText: "Đang trả lời...",
     systemContent: "Chỉ trả lời dựa trên nội dung website được cung cấp và ghi rõ nguồn. Trả lời ngắn gọn, chính xác bằng tiếng Việt nếu có thể.",
-    getWebsite: () => "https://vnexpress.net"
+    getWebsite: () => "https://kindarusty.github.io"
   },
   en: {
     chatHeader: "Ask AI",
@@ -17,7 +17,7 @@ const LANGS = {
     openTitle: "Chat with AI",
     answeringText: "Answering...",
     systemContent: "Only answer based on the provided website and clearly cite sources. Respond concisely and accurately in English if possible.",
-    getWebsite: () => "https://en.wikipedia.org/wiki/Champa"
+    getWebsite: () => "https://kindarusty.github.io"
   }
 };
 
