@@ -23,7 +23,7 @@ const LANGS = {
 
 document.addEventListener('DOMContentLoaded', function() {
     // ---- Cài đặt ----
-    const API_KEY = "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";
+    const API_KEY = "pplx  -fCMJUwA0I2Yl9wLjuxp1k0OqDHxoh3O872BZqGzAF9x1dl2z";
     // Đọc ngôn ngữ hiện tại từ hidden input hoặc mặc định
     const langSwitcher = document.getElementById("lang-switcher");
     function getLang() {
