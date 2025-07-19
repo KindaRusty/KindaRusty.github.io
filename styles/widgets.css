@@ -1,0 +1,58 @@
+/* Widget Container Styles */
+#widget-container {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+/* Weather Widget Styles */
+#weather-widget {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    padding: 16px 22px;
+    font-size: 1em;
+    min-width: 180px;
+    text-align: left;
+    font-family: inherit;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#weather-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive adjustments for widgets */
+@media (max-width: 768px) {
+    #widget-container {
+        right: 16px;
+        bottom: 16px;
+        gap: 12px;
+    }
+    
+    #weather-widget {
+        min-width: 160px;
+        padding: 12px 16px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    #widget-container {
+        right: 12px;
+        bottom: 12px;
+    }
+    
+    #weather-widget {
+        min-width: 140px;
+        padding: 10px 14px;
+        font-size: 0.85em;
+    }
+}

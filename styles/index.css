@@ -40,6 +40,7 @@ header {
   z-index: 100;
   width: 100%;
   box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .nav-links {
@@ -49,6 +50,7 @@ header {
   margin: 0;
   padding: 0;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -112,6 +114,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   margin-left: auto;
+  min-width: 200px;
 }
 
 .search-box {
@@ -178,31 +181,28 @@ header {
 }
 
 .slider {
-  width: 100%;
+  width: 300%; /* 100% × number of slides */
   height: 100%;
-  position: relative;
+  display: flex;
+  animation: slide 12s infinite; /* 4s per slide × 3 slides */
 }
 
 .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  width: 33.333%; /* 100% ÷ number of slides */
   height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 1;
-}
-
-.slide.active {
-  opacity: 1;
-  z-index: 2;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@keyframes slide {
+  0%, 30% { transform: translateX(0); }
+  33.333%, 63.333% { transform: translateX(-33.333%); }
+  66.666%, 96.666% { transform: translateX(-66.666%); }
+  100% { transform: translateX(0); }
 }
 
 .welcome-message {
@@ -224,16 +224,16 @@ header {
 
 .area {
   padding: 20px;
-  border-bottom: 1px solid #fff; /* thin white line */
+  border-bottom: 1px solid #fff;
 }
 
 .area:last-child {
-  border-bottom: none;    /* no line after footer */
+  border-bottom: none;
 }
 
 .area h2 {
   margin-bottom: 30px;
-  font-size: 30px; /* Increased header size to 30px */
+  font-size: 30px;
 }
 
 .area nav a {
@@ -241,7 +241,7 @@ header {
   margin-right: 15px;
   color: #fff;
   text-decoration: none;
-  font-size: 24px; /* Increased navigation link size to 24px */
+  font-size: 24px;
 }
 
 .area nav a:hover {
@@ -316,6 +316,8 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .view-all-link {
@@ -410,23 +412,22 @@ header {
   position: relative;
   display: flex;
   align-items: center;
-  margin: 0 -10px;
+  gap: 20px;
 }
 
 .carousel-wrapper {
-  width: 100%;
+  flex: 1;
   overflow: hidden;
-  padding: 0 10px;
 }
 
 .carousel-track {
   display: flex;
+  gap: 20px;
   transition: transform 0.5s ease;
 }
 
 .collection-card {
   flex: 0 0 calc(33.333% - 20px);
-  margin: 0 10px;
   background-color: #222;
   border-radius: 8px;
   overflow: hidden;
@@ -437,64 +438,112 @@ header {
   transform: translateY(-5px);
 }
 
-.collection-image {
-  height: 240px;
-  background-color: #333;
-}
-
+/* Keep h3 ABOVE the image as in screenshot */
 .collection-card h3 {
-  padding: 20px;
+  text-align: center;
+  padding: 20px 15px 15px 15px;
   margin: 0;
   font-size: 20px;
   color: #fff;
-  text-align: center;
+  background-color: #222;
 }
 
+/* Image container below the title */
+.collection-image {
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.collection-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.collection-card:hover .collection-image img {
+  transform: scale(1.05);
+}
+
+/* Keep carousel arrows exactly as in screenshot */
 .carousel-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  border: none;
+  border: 2px solid #fff;
+  background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-.carousel-prev {
-  background-color: #444;
-  margin-right: 10px;
-}
-
-.carousel-next {
-  background-color: #fff;
-  margin-left: 10px;
-}
-
-.carousel-prev i {
-  color: #fff;
-}
-
+.carousel-prev i,
 .carousel-next i {
-  color: #222;
+  color: #fff;
+  font-size: 20px;
 }
 
 .carousel-arrow:hover {
-  opacity: 0.9;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
 }
 
-/* Add JavaScript for carousel functionality */
+/* Responsive adjustments - images only */
 @media (max-width: 992px) {
   .collection-card {
-    flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 15px);
+  }
+  
+  .collection-image {
+    height: 180px;
+  }
+  
+  .collection-card h3 {
+    font-size: 18px;
+    padding: 15px 12px 12px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-image {
+    height: 160px;
+  }
+  
+  .collection-card h3 {
+    font-size: 16px;
+    padding: 12px 10px 10px 10px;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carousel-prev i,
+  .carousel-next i {
+    font-size: 16px;
   }
 }
 
 @media (max-width: 576px) {
   .collection-card {
-    flex: 0 0 calc(100% - 20px);
+    flex: 0 0 calc(100% - 10px);
+  }
+  
+  .collection-image {
+    height: 180px;
+  }
+  
+  .collection-card h3 {
+    font-size: 16px;
+    padding: 15px 12px 12px 12px;
   }
 }
 
@@ -604,4 +653,296 @@ header {
 .social-icon:hover {
   background-color: #777;
   transform: translateY(-3px);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 0 20px;
+    height: auto;
+    min-height: 80px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .logo {
+    margin-right: 0;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-links a {
+    font-size: 16px;
+    padding: 20px 0;
+  }
+  
+  .search-container {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+  
+  .search-box {
+    width: 300px;
+    max-width: 100%;
+  }
+  
+  .slider-container {
+    height: 300px;
+  }
+  
+  .welcome-message {
+    padding: 15px 20px;
+  }
+  
+  .welcome-message p {
+    font-size: 18px;
+  }
+  
+  .area {
+    padding: 15px;
+  }
+  
+  .area h2 {
+    font-size: 24px;
+  }
+  
+  .area nav a {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .feature-cards {
+    flex-direction: column;
+  }
+  
+  .feature-card {
+    min-width: auto;
+  }
+  
+  .exhibition-panels {
+    flex-direction: column;
+  }
+  
+  .exhibition-panel {
+    min-width: auto;
+  }
+  
+  .collection-card {
+    flex: 0 0 calc(50% - 20px);
+  }
+  
+  .contact-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 15px;
+    text-align: center;
+  }
+  
+  .nav-links {
+    gap: 15px;
+  }
+  
+  .nav-links a {
+    font-size: 14px;
+    padding: 15px 0;
+  }
+  
+  .search-box {
+    width: 250px;
+  }
+  
+  .slider-container {
+    height: 250px;
+  }
+  
+  .welcome-message {
+    padding: 10px 15px;
+  }
+  
+  .welcome-message p {
+    font-size: 16px;
+  }
+  
+  .area {
+    padding: 10px 15px;
+  }
+  
+  .area h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .area nav a {
+    font-size: 18px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-card {
+    padding: 20px;
+  }
+  
+  .card-image-placeholder {
+    height: 120px;
+  }
+  
+  .exhibition-content {
+    padding: 20px;
+  }
+  
+  .exhibition-image {
+    height: 180px;
+  }
+  
+  .collection-image {
+    height: 200px;
+  }
+  
+  .collection-card h3 {
+    font-size: 18px;
+    padding: 15px;
+  }
+  
+  .social-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .social-icon i {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0 10px;
+  }
+  
+  .nav-links {
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .nav-links a {
+    font-size: 16px;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .search-box {
+    width: 200px;
+  }
+  
+  .search-box input[type="text"] {
+    font-size: 14px;
+  }
+  
+  .slider-container {
+    height: 200px;
+  }
+  
+  .welcome-message p {
+    font-size: 14px;
+  }
+  
+  .area h2 {
+    font-size: 18px;
+  }
+  
+  .area nav a {
+    font-size: 16px;
+    display: block;
+    margin-right: 0;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  .feature-card {
+    padding: 15px;
+  }
+  
+  .feature-card h3 {
+    font-size: 18px;
+  }
+  
+  .card-image-placeholder {
+    height: 100px;
+  }
+  
+  .exhibition-content {
+    padding: 15px;
+  }
+  
+  .exhibition-panel h3 {
+    font-size: 20px;
+  }
+  
+  .collection-card {
+    flex: 0 0 calc(100% - 20px);
+  }
+  
+  .collection-image {
+    height: 160px;
+  }
+  
+  .collection-card h3 {
+    font-size: 16px;
+    padding: 12px;
+  }
+  
+  .email-form {
+    flex-direction: column;
+  }
+  
+  .email-form input[type="email"] {
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .email-form button {
+    border-radius: 4px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .social-icon i {
+    font-size: 16px;
+  }
+  
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .footer-area footer a {
+    font-size: 0.8em;
+    margin: 0 5px;
+  }
 }

@@ -4,19 +4,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
-        <link rel="stylesheet" href="styles/index.css">
+        <link rel="stylesheet" href="../../styles/index.css">
+        <link rel="stylesheet" href="../../styles/widgets.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </head>
 <body>
-
     <header>
         <nav class="navbar">
-            <a href="index.html" class="logo"><img src="media/logo.jpg" alt="Logo"></a>
-            
+            <a href="index.html" class="logo"><img src="../../media/logo.jpg" alt="Logo"></a>
             <ul class="nav-links">
                 <li><a href="visit.html">Visit <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="collection.html">Collection <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="events.html">Events <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
+                <li><a href="collection.html">Collection</a></li>
                 <li><a href="contact.html">Contact Us <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></span></a></li>
             </ul>
             
@@ -25,7 +24,7 @@
                     <input type="text" placeholder="Searching for..." />
                     <button type="submit">&#128269;</button>
                 </form>
-            </div>             
+            </div>   
         </nav>
     </header>
 
@@ -36,13 +35,13 @@
   <div class="slider-container">
     <div class="slider">
       <div class="slide active">
-        <img src="media/banner1.png" alt="Museum Banner 1">
+        <img src="../../media/banner1.png" alt="Museum Banner 1">
       </div>
       <div class="slide">
-        <img src="media/banner2.png" alt="Museum Banner 2">
+        <img src="../../media/banner2.png" alt="Museum Banner 2">
       </div>
       <div class="slide">
-        <img src="media/banner3.png" alt="Museum Banner 3">
+        <img src="../../media/banner3.png" alt="Museum Banner 3">
       </div>
     </div>
   </div>
@@ -144,30 +143,30 @@
       <div class="carousel-wrapper">
         <div class="carousel-track">
           <div class="collection-card">
-            <h3>Tháp Mẫm</h3>
+            <h3>Thap Mam</h3>
             <div class="collection-image">
-              <!-- Collection image will be added later -->
+              <img src="../../media/Phong_Tra_Kieu.jpg" alt="Tháp Mẫm">
             </div>
           </div>
           
           <div class="collection-card">
-            <h3>Đồng Dương</h3>
+            <h3>Đong Duong</h3>
             <div class="collection-image">
-              <!-- Collection image will be added later -->
+              <img src="../../media/Phong_Dong_Duong.jpg" alt="Đồng Dương">
             </div>
           </div>
           
           <div class="collection-card">
-            <h3>Mỹ Sơn</h3>
+            <h3>My Son</h3>
             <div class="collection-image">           
-              <!-- Collection image will be added later -->
+              <img src="../../media/Phong_My_Son.jpg" alt="Mỹ Sơn">
             </div>
           </div>
           
           <div class="collection-card">
-            <h3>Trà Kiệu</h3>
+            <h3>Tra Kieu</h3>
             <div class="collection-image">
-              <!-- Collection image will be added later -->
+              <img src="../../media/Phong_Tra_Kieu.jpg" alt="Trà Kiệu">
             </div>
           </div>
         </div>
@@ -225,8 +224,16 @@
 
 </div>
 
-<script src="scripts/index.js"></script>
-<script src="scripts/carousel.js"></script>
+<!-- Widget Container -->
+<div id="widget-container">
+    <!-- Weather Widget -->
+    <div id="weather-widget">
+        <span>Loading weather...</span>
+    </div>
+</div>
+
+<script src="../../scripts/carousel.js"></script>
+<script src="../../scripts/weather.js"></script>
 
 </body>
 </html>
