@@ -6,7 +6,8 @@ const LANGS = {
     sendBtn: '<i class="fa fa-paper-plane"></i> Gửi',
     openTitle: "Chat với AI",
     answeringText: "Đang trả lời...",
-    systemContent: "Chỉ trả lời dựa trên nội dung website được cung cấp và ghi rõ nguồn. Trả lời ngắn gọn, chính xác bằng tiếng Việt nếu có thể.",
+    // Preset: CHỈ trả lời chủ đề Chăm và từ chối nếu ngoài phạm vi!
+    systemContent: "Chỉ trả lời các câu hỏi về nghệ thuật, lịch sử Chăm hoặc phân tích hình ảnh (liên quan Chăm). Nếu câu hỏi không thuộc phạm vi này, hãy từ chối trả lời và thông báo cho người dùng biết. Chỉ trả lời dựa trên nội dung website được cung cấp và ghi rõ nguồn. Trả lời ngắn gọn, chính xác bằng tiếng Việt.",
     getWebsite: () => "https://kindarusty.github.io/Website/vi"
   },
   en: {
@@ -16,15 +17,14 @@ const LANGS = {
     sendBtn: '<i class="fa fa-paper-plane"></i> Send',
     openTitle: "Chat with AI",
     answeringText: "Answering...",
-    systemContent: "Only answer based on the provided website and clearly cite sources. Respond concisely and accurately in English if possible.",
+    // Preset: ONLY answer Cham art/history/image, refuse other topics
+    systemContent: "Only answer questions about Cham art, Cham history, or analysis of relevant images. If the question is outside this scope, politely decline and inform the user about your field. Only answer based on the provided website and clearly cite sources. Respond concisely and accurately in English.",
     getWebsite: () => "https://kindarusty.github.io/Website/en"
   }
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    // ---- Cài đặt ----
-    const API_KEY = "pplx  -fCMJUwA0I2Yl9wLjuxp1k0OqDHxoh3O872BZqGzAF9x1dl2z";
-    // Đọc ngôn ngữ hiện tại từ hidden input hoặc mặc định
+    const API_KEY = "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";
     const langSwitcher = document.getElementById("lang-switcher");
     function getLang() {
       return langSwitcher ? langSwitcher.value : 'vi';
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const headerText = document.getElementById("chat-header-text");
     const welcomeMsg = document.getElementById("bot-welcome-message");
 
-    // Đặt lại UI theo ngôn ngữ
+    // Đặt lại giao diện khi đổi ngôn ngữ
     function setLanguage(lang) {
       const t = LANGS[lang] || LANGS.vi;
       if (headerText) headerText.textContent = t.chatHeader;
@@ -50,23 +50,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setLanguage(getLang());
 
-    if(openBtn && closeBtn && chatWindow) {
-        openBtn.onclick = () => {
-            chatWindow.classList.add("open");
-            openBtn.style.display = 'none';
-        };
-        closeBtn.onclick = () => {
-            chatWindow.classList.remove("open");
-            openBtn.style.display = 'flex';
-        };
-    }
-    if(sendBtn && chatInput) {
-        sendBtn.onclick = sendPrompt;
-        chatInput.addEventListener("keydown", function(e){
-            if (e.key === "Enter") sendPrompt();
-        });
+    // Switch UI khi đổi ngôn ngữ động (nếu có selector)
+    if(langSwitcher) {
+      langSwitcher.addEventListener("change", function() {
+        setLanguage(getLang());
+      });
     }
 
+    // Mở/Đóng cửa sổ chat
+    if(openBtn && closeBtn && chatWindow) {
+      openBtn.onclick = () => {
+          chatWindow.classList.add("open");
+          openBtn.style.display = 'none';
+      };
+      closeBtn.onclick = () => {
+          chatWindow.classList.remove("open");
+          openBtn.style.display = 'flex';
+      };
+    }
+    if(sendBtn && chatInput) {
+      sendBtn.onclick = sendPrompt;
+      chatInput.addEventListener("keydown", function(e){
+          if (e.key === "Enter") sendPrompt();
+      });
+    }
+
+    // Hiển thị message vào chat
     function appendMessage(content, sender="bot", isHtml=false) {
         const div = document.createElement("div");
         div.className = "message " + (sender === "user" ? "user-message" : "bot-message");
@@ -79,9 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    // Tô đậm **text** → <b>text</b>
     function boldifyMarkdown(text) {
         return text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
     }
+    // Tô citation [1] thành link
     function linkifyCitation(content, sources) {
         if (!sources || !Array.isArray(sources) || sources.length === 0) return content;
         return content.replace(/\[(\d+)\]/g, function(_, n) {
@@ -109,9 +120,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const DEFAULT_WEBSITE = t.getWebsite();
 
+        // Đặt SCOPE_NOTIFY bổ sung - tùy chọn, có thể bỏ để prompt sạch hơn
+        const SCOPE_NOTIFY = lang === 'vi'
+          ? "Lưu ý: Bạn chỉ được hỏi về nghệ thuật, lịch sử Chăm hoặc phân tích hình ảnh liên quan."
+          : "Note: You should only ask about Cham art, history, or related image analysis.";
+
         const compositePrompt = lang === 'vi'
-          ? `Câu hỏi: ${userRaw} (ưu tiên trả lời dựa trên dữ liệu trang web sau: ${DEFAULT_WEBSITE})\nTrang web cần truy cập: ${DEFAULT_WEBSITE}`
-          : `Question: ${userRaw} (please answer based on the following website: ${DEFAULT_WEBSITE})\nWebsite to access: ${DEFAULT_WEBSITE}`;
+          ? `${SCOPE_NOTIFY}\nCâu hỏi: ${userRaw} (ưu tiên trả lời dựa trên dữ liệu trang web sau: ${DEFAULT_WEBSITE})\nTrang web cần truy cập: ${DEFAULT_WEBSITE}`
+          : `${SCOPE_NOTIFY}\nQuestion: ${userRaw} (please answer based on the following website: ${DEFAULT_WEBSITE})\nWebsite to access: ${DEFAULT_WEBSITE}`;
 
         const url = "https://api.perplexity.ai/chat/completions";
         const payload = {
@@ -144,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 data.choices[0].message.citations ||
                 (data.choices[0].sources ? data.choices[0].sources : null);
 
+            // In đậm **text**, gắn link citation nếu có
             answer = boldifyMarkdown(answer);
             if (sources && Array.isArray(sources) && sources.length > 0) {
                 answer = linkifyCitation(answer, sources);
@@ -155,18 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const loading = document.querySelectorAll(".bot-message");
             if (loading.length) loading[loading.length-1].remove();
             appendMessage(
-              (lang==='vi' ? "Lỗi khi gọi API: " : "API error: ") + e.message, "bot", false
+                (lang==='vi' ? "Lỗi khi gọi API: " : "API error: ") + e.message, "bot", false
             );
         }
     }
-
-    // Nếu bạn muốn thay đổi ngôn ngữ động bằng code khác, dùng:
-    // document.getElementById("lang-switcher").value = "en";
-    // document.getElementById("lang-switcher").dispatchEvent(new Event("change"));
-    // Thêm sự kiện cho hidden input nếu đổi trong runtime
-    if(langSwitcher) {
-      langSwitcher.addEventListener("change", function() {
-        setLanguage(getLang());
-      });
-    }
 });
+

@@ -30,30 +30,26 @@
 }
 
 .chat-window {
-    width: 450px;
-    height: 500px;
+    position: fixed;
+    z-index: 1001;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 20px); 
+    box-sizing: border-box;
+    max-width: 480px;
+    height: auto;
+    max-height: 85vh;
+
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     display: none;
     flex-direction: column;
-    position: absolute;
-    bottom: 75px;
-    right: 0;
-    overflow: hidden;
-    animation: slideInUp .22s;
+    overflow-y: auto;
 }
 
-@keyframes slideInUp {
-    from { 
-        transform: translateY(60px); 
-        opacity: 0; 
-    }
-    to { 
-        transform: translateY(0); 
-        opacity: 1; 
-    }
-}
+
 
 .chat-window.open { 
     display: flex; 
@@ -174,18 +170,31 @@
 .message b { font-weight: bold; color:#000; }
 
 
-@media (max-width: 900px) {
-    .chat-window {
-        width: 98vw;
-        height: 86vh;
-        right: 1vw;
-        bottom: 70px;
-        min-width: 0;
-        min-height: 0;
-    }
-    
-    .chat-footer input[type="text"] {
-        width: 50vw;
-        min-width: 80px;
-    }
+@media (min-width: 500px) {
+  .chat-window {
+    /* Switch to bottom-right positioning */
+    top: auto;
+    left: auto;
+    bottom: 85px; /* Above the icon */
+    right: 24px;
+    transform: none;
+
+    width: 400px;
+    height: 500px;
+    max-width: none; /* Reset max-width */
+  }
+}
+
+@media (min-width: 700px) {
+  .chat-window {
+    width: 600px;
+    height: 700px;
+  }
+}
+
+@media (min-width: 900px) {
+  .chat-window {
+    width: 675px;
+    height: 775px;
+  }
 }
